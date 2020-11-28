@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-nimble build
+# nimble build
 
 # readonly id="$(mktemp | xargs basename | sed -e 's/\./_/g')"
 readonly sqlite_filepath="$(./git_events_collector mvp)"
