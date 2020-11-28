@@ -1,5 +1,7 @@
 import argparse
+import strformat
 import sugar
+import system
 
 import ./statics
 
@@ -10,22 +12,26 @@ const AppName = "git_events_collector"
 let p = newParser(AppName):
   help "TODO"
 
-  flag("--version", help = "Print the version of " & AppName)
-  flag("--revision", help = "Print the Git SHA of " & AppName)
-  flag("--info", help = "Print version and revision")
+  flag "--version",  help = "Print the version of " & AppName
+  flag "--revision", help = "Print the Git SHA of " & AppName
+  flag "--info",     help = "Print version and revision"
 
   command "mvp":
+    arg "src",  help = "Filepath of the source TSV input file"
+    arg "dest", help = "Filepath of the destination SQLite file"
+
     run:
-      const log_filepath    = expandTilde "~/.git-events.log"
-      const sqlite_filepath = expandTilde "~/.git-events-collector.db"
-      const db_open = () => open_sqlite sqlite_filepath
+      let tsvFile = expandTilde opts.src
+      let sqliteFile = expandTilde opts.dest
+
+      let db_open = () => open_sqlite sqliteFile
 
       db_open.dbSetup
 
-      for e in fromFile(logFilepath):
+      for e in fromFile(tsvFile):
         db_open.loadDb e
 
-      echo sqlite_filepath
+      echo sqliteFile
 
   run:
     if opts.version:
