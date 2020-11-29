@@ -50,16 +50,21 @@ chmod -w "${current_log}"
 readonly closed_log="${logs_dir_closed}/$(basename "${current_log}")"
 mv "${current_log}" "${closed_log}"
 
-sleep 5
+# Check if there's even anything in it
+if [ -s "${closed_log}" ]; then
+  readonly dw_db_name='warehouse'
+  readonly sqlite_filepath="$(mktemp).db"
 
-readonly dw_db_name='warehouse'
-readonly sqlite_filepath="$(mktemp).db"
+  ./git_events_collector mvp "${closed_log}" "${sqlite_filepath}"
 
-./git_events_collector mvp "${closed_log}" "${sqlite_filepath}"
+  createdb "${dw_db_name}" || true
 
-createdb "${dw_db_name}" || true
+  readonly load_file="$(mktemp)"
+  dhall text <<< "./pgLoad.dhall \"${sqlite_filepath}\" \"${dw_db_name}\"" \
+    | tee "${load_file}"
+  pgloader "${load_file}"
+else
+  >&2 echo "empty file ${closed_log} -- doing nothing"
+fi
 
-readonly load_file="$(mktemp)"
-dhall text <<< "./pgLoad.dhall \"${sqlite_filepath}\" \"${dw_db_name}\"" \
-  | tee "${load_file}"
-pgloader "${load_file}" && rm -f "${closed_log}"
+rm -f "${closed_log}"
