@@ -17,3 +17,6 @@ nimcache/
 
 # nimble binaries
 git_events_collector
+
+# misc
+tmp/
