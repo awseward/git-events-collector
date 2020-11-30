@@ -12,8 +12,8 @@ nimcache/
 # Mac Finder junk
 .DS_STORE
 
-# direnv
-.envrc
+# direnv (kind of)
+.envrc.local
 
 # nimble binaries
 git_events_collector

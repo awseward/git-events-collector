@@ -1,0 +1,39 @@
+{
+  "entries": {
+    "brew": {
+      "freetds": {
+        "version": "1.2.13",
+        "bottle": {
+          "cellar": "/usr/local/Cellar",
+          "prefix": "/usr/local",
+          "files": {
+            "big_sur": {
+              "url": "https://homebrew.bintray.com/bottles/freetds-1.2.13.big_sur.bottle.tar.gz",
+              "sha256": "700a41ca39c3a398826145ddcf336441cdb59c2c4c98c5d70d9f4a00956d8f1d"
+            },
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/freetds-1.2.13.catalina.bottle.tar.gz",
+              "sha256": "d58f9b2a5518d93163fe270656934506fd6beb9fe61b996972f7c567938ee6f1"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/freetds-1.2.13.mojave.bottle.tar.gz",
+              "sha256": "26cdbbddc6d4f8bc92b7d9fd6c730e7979361b5bd95bd7d812908654db2a5941"
+            }
+          }
+        }
+      }
+    }
+  },
+  "system": {
+    "macos": {
+      "catalina": {
+        "HOMEBREW_VERSION": "2.5.12-336-g49054b4",
+        "HOMEBREW_PREFIX": "/usr/local",
+        "Homebrew/homebrew-core": "9c214141b2207488f63b57a00ce1e91659e51720",
+        "CLT": "1103.0.32.62",
+        "Xcode": "12.2",
+        "macOS": "10.15.7"
+      }
+    }
+  }
+}
