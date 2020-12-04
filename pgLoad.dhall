@@ -1,9 +1,9 @@
 λ(sqliteFilepath : Text) →
-λ(pgDbName : Text) →
+λ(pgTarget : Text) →
   ''
   LOAD database
   FROM '${sqliteFilepath}'
-  INTO postgresql:///${pgDbName}
+  INTO ${pgTarget}
 
   WITH data only
 

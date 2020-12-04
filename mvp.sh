@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
-readonly closed_log="$(./rotate.sh)"
+readonly ingest_url="${DW_INGEST_URL:=localhost:8080}"'/sqlite?sj_path={}&store=git-events'
 
-./load_pg.sh "${closed_log}"
+./rotate.sh \
+  | xargs -t ./to_sqlite.sh \
+  | xargs -t ./push.sh \
+  | xargs -t -I{} curl "${ingest_url}"
