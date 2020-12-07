@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-./git_events_collector || nimble build
+./git_events_collector > /dev/null || nimble build
 
 readonly ingest_url="${DW_INGEST_URL:=localhost:8080}"'/sqlite?sj_path={}&store=git-events'
 
