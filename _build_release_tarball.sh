@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+set -x
+
 readonly tag_name="$1"
 readonly binary_name='git_events_collector'
 readonly tarball_name="${binary_name}-${tag_name}.tar.gz"
