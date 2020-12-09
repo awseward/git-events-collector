@@ -2,11 +2,8 @@
 
 set -euo pipefail
 
-./git_events_collector > /dev/null || nimble build
+readonly repo_dir="$(realpath -e "${0}" | xargs dirname)"
 
-readonly ingest_url="${DW_INGEST_URL:=localhost:8080}"'/sqlite?sj_path={}&store=git-events'
+>&2 echo -e "Running with ${repo_dir} at front of \$PATH...\n"
 
-./gec_rotate \
-  | xargs -t ./gec_tsv-to-sqlite \
-  | xargs -t ./gec_push \
-  | xargs -t -I{} curl "${ingest_url}"
+PATH="${repo_dir}:${PATH}" "${repo_dir}/gec_run"

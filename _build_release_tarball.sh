@@ -13,6 +13,7 @@ readonly tarball_name="${binary_name}-${tag_name}.tar.gz"
                            "${binary_name}" \
                            gec_rotate \
                            gec_tsv-to-sqlite \
-                           gec_push
+                           gec_push \
+                           gec_run
 
 echo "${tarball_name}"

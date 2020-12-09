@@ -15,5 +15,5 @@ fi
 
 readonly sqlite_filepath="$(mktemp -t "$(date -u +%Y%m%d%H%M%S_%N)-XXXXXXXXXX.db")"
 
-./git_events_collector mvp "${tsv_log}" "${sqlite_filepath}"
+git_events_collector mvp "${tsv_log}" "${sqlite_filepath}"
 rm -f "${tsv_log}"
