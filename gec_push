@@ -3,7 +3,7 @@
 set -euo pipefail
 
 readonly filepath="$1"
-readonly filename="$(date -u +%Y%m%d%H%M%S_%N)-$(basename "${filepath}")"
+readonly filename="$(basename "${filepath}")"
 readonly sj_prefix='sj://test'
 
 echo test-write | xargs -t uplink cp "${filepath}" "${sj_prefix}/${filename}" --access | sed -E 's/^Created //'
