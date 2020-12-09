@@ -4,7 +4,7 @@
 
 readonly response="HTTP/1.1 202 Accepted\r\nConnection: keep-alive\r\n\r\n${2:-"Accepted"}\r\n"
 
-access_name="acc-$(mktemp | xargs basename | sed -e 's/\./-/g')"
+access_name="$(mktemp -u -t sj-access-XXXXXXXXXXXXXXXX | xargs basename)"
 readonly access_name="${access_name,,}"
 
 uplink import "${access_name}" "${SJ_ACCESS}"
