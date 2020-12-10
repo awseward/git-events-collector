@@ -3,7 +3,8 @@
 set -euo pipefail
 
 readonly url_base="${DW_INGEST_URL:-localhost:8080}"
-readonly ingest_url_template="${url_base}"'/sqlite?sj_path={}&store=git-events'
+
+echo -en "\n=== " && date
 
 readonly sj_path="$(
   gec_rotate \
@@ -13,7 +14,8 @@ readonly sj_path="$(
 
 if [ "${sj_path}" != '' ]; then
   # Temporary: May need to wake up what's currently a free-tier Heroku dyno
-  until echo "${url_base}/wake" | xargs -t curl -q -I; do sleep 2; done
+  until echo "${url_base}/wake" | xargs -t curl -s -I; do sleep 2; done
 
-  echo "${sj_path}" | xargs -t -I{} curl "${ingest_url_template}"
+  readonly ingest_url_template="${url_base}"'/sqlite?sj_path={}&store=git-events'
+  echo "${sj_path}" | xargs -t -I{} curl -s -I "${ingest_url_template}"
 fi
