@@ -4,9 +4,9 @@ set -euo pipefail
 
 readonly filepath="$1"
 readonly filename="$(basename "${filepath}")"
-readonly sj_prefix='sj://test'
+readonly sj_prefix="${2:-sj://test}"
 
 echo test-write \
-  | xargs -t uplink cp "${filepath}" "${sj_prefix}/${filename}" --progress=false --access \
+  | xargs -t uplink cp "${filepath}" "${sj_prefix}/${filename}" --progress=false --expires="$(date -d '10 days' -u +%FT%TZ)" --access \
   | sed -E 's/^Created //' \
   && ( echo "${filepath}" | xargs -t >&2 rm -fv -- ) # Remove the temp file if it made it up.
