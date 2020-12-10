@@ -12,12 +12,12 @@ const AppName = "git_events_collector"
 let p = newParser(AppName):
   help "TODO"
 
-  flag "--version",  help = "Print the version of " & AppName
+  flag "--version", help = "Print the version of " & AppName
   flag "--revision", help = "Print the Git SHA of " & AppName
-  flag "--info",     help = "Print version and revision"
+  flag "--info", help = "Print version and revision"
 
   command "mvp":
-    arg "src",  help = "Filepath of the source TSV input file"
+    arg "src", help = "Filepath of the source TSV input file"
     arg "dest", help = "Filepath of the destination SQLite file"
 
     run:
