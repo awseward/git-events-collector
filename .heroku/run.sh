@@ -27,7 +27,7 @@ which uplink && uplink version
 
 _sep
 
-readonly dhall_haskell_ver='1.36.0'
+readonly dhall_haskell_ver='1.37.0'
 readonly dhall_bin_zip_name="dhall-${dhall_haskell_ver}-x86_64-linux.tar.bz2"
 
 wget "https://github.com/dhall-lang/dhall-haskell/releases/download/${dhall_haskell_ver}/${dhall_bin_zip_name}" \
