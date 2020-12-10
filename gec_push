@@ -6,4 +6,7 @@ readonly filepath="$1"
 readonly filename="$(basename "${filepath}")"
 readonly sj_prefix='sj://test'
 
-echo test-write | xargs -t uplink cp "${filepath}" "${sj_prefix}/${filename}" --access | sed -E 's/^Created //'
+echo test-write \
+  | xargs -t uplink cp "${filepath}" "${sj_prefix}/${filename}" --progress=false --access \
+  | sed -E 's/^Created //' \
+  && ( echo "${filepath}" | xargs -t >&2 rm -fv -- ) # Remove the temp file if it made it up.
