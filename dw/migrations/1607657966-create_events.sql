@@ -4,13 +4,13 @@
 
 BEGIN;
 
-  CREATE TABLE events (
-    version   TEXT        NOT NULL,
-    timestamp TIMESTAMPTZ NOT NULL,
-    hook      TEXT        NOT NULL,
-    repo      TEXT        NOT NULL,
-    ref       TEXT        NOT NULL
-  );
+  -- CREATE TABLE events (
+  --   version   TEXT        NOT NULL,
+  --   timestamp TIMESTAMPTZ NOT NULL,
+  --   hook      TEXT        NOT NULL,
+  --   repo      TEXT        NOT NULL,
+  --   ref       TEXT        NOT NULL
+  -- );
 
 COMMIT;
 
