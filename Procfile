@@ -1,1 +1,1 @@
-web: PATH="${PATH}:/app/bin" ./server.sh $PORT
+web: cd dw/ && PATH="${PATH}:/app/bin" ./server.sh $PORT
