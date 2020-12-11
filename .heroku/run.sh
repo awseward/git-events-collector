@@ -50,3 +50,14 @@ _sep
 git clone git://github.com/mbucc/shmig.git
 git -C ./shmig checkout 81006b75e31b0772d68f4e988194c4eb33f0c4eb
 cp ./shmig/shmig ./bin/
+
+### Install heroku_database_url_splitter
+
+readonly hdus='heroku_database_url_splitter'
+readonly hdus_ver='0.0.1'
+readonly hdus_tar="${hdus}-${hdus_ver}.tar.gz"
+
+wget "https://github.com/awseward/${hdus}/releases/download/${hdus_ver}/${hdus_tar}" \
+  && tar -zxvf "./${hdus_tar}" \
+  && mv "./${hdus}" ./bin/ \
+  && rm -rf "${hdus_tar}"
