@@ -10,7 +10,7 @@ readonly access_name="${access_name,,}"
 uplink import "${access_name}" "${SJ_ACCESS}"
 export SJ_ACCESS="${access_name}"
 
-echo "${SJ_ACCESS}" | xargs -t uplink ls "sj://${SJ_BUCKET}" --access
+# echo "${SJ_ACCESS}" | xargs -t uplink ls "sj://${SJ_BUCKET}" --access
 
 while true; do
   ( set -euo pipefail
