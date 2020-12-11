@@ -42,3 +42,10 @@ _sep
 
 # See Aptfile
 which pgloader && pgloader --version
+
+### Install shmig
+
+_sep
+
+git clone git://github.com/mbucc/shmig.git
+cp shmig/shmig ./bin/
