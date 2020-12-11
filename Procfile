@@ -1,3 +1,2 @@
-web: cd dw/ && PATH="${PATH}:/app/bin" ./server.sh $PORT
-
-release: echo 'TODO: Add https://github.com/awseward/heroku_database_url_splitter to enable `shmig up`.'
+web:     cd dw/ && PATH="${PATH}:/app/bin" ./server.sh $PORT
+release: cd dw/ && PATH="${PATH}:/app/bin" ./scripts/heroku_release.sh
