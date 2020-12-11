@@ -48,4 +48,5 @@ which pgloader && pgloader --version
 _sep
 
 git clone git://github.com/mbucc/shmig.git
-cp shmig/shmig ./bin/
+git -C ./shmig checkout 81006b75e31b0772d68f4e988194c4eb33f0c4eb
+cp ./shmig/shmig ./bin/
