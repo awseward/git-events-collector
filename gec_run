@@ -6,16 +6,15 @@ readonly url_base="${DW_INGEST_URL:-localhost:8080}"
 
 echo -en "\n=== " && date
 
-readonly sj_path="$(
-  gec_rotate \
-    | xargs -t gec_tsv-to-sqlite \
-    | xargs -t gec_push \
-)"
+readonly sqlite_file="$(gec_rotate | xargs -t gec_tsv-to-sqlite)"
 
-if [ "${sj_path}" != '' ]; then
-  # Temporary: May need to wake up what's currently a free-tier Heroku dyno
-  until echo "${url_base}/wake" | xargs -t curl -s -I; do sleep 2; done
+[ "${sqlite_file}" == '' ] && exit 1
 
-  readonly ingest_url_template="${url_base}"'/sqlite?sj_path={}&store=git-events'
-  echo "${sj_path}" | xargs -t -I{} curl -s -I "${ingest_url_template}"
-fi
+readonly sj_path="$(echo "${sqlite_file}" | xargs -t gec_push)"
+
+[ "${sj_path}" == '' ] && exit 1
+
+# Temporary: May need to wake up what's currently a free-tier Heroku dyno
+until echo "${url_base}/wake" | xargs -t curl -s -I; do sleep 2; done
+
+echo "${sj_path}" | xargs -t -I{} curl -s -I "${url_base}"'/sqlite?sj_path={}&store=git-events'
