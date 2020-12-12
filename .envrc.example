@@ -1,0 +1,3 @@
+use_nix
+
+export DW_INGEST_URL=https://example.com
