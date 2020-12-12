@@ -28,6 +28,8 @@ jobs:
         path: ~/.nimble
         key: ${{ runner.os }}-nimble-stable
     - uses: jiro4989/setup-nim-action@v1.1.4
+      with:
+        nim-version: '1.4.0'
 
     - id: tarball
       run: |
