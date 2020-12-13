@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.1.1"
+version       = "0.1.2"
 author        = "Andrew Seward"
 description   = "An app for collecting git events"
 license       = "MIT"
