@@ -4,7 +4,7 @@ set -euo pipefail
 
 readonly filepath="$1"
 readonly filename="$(basename "${filepath}")"
-readonly sj_prefix="${2:-sj://test}"
+readonly sj_prefix="${2:-sj://dw-inbox/git-events}"
 
 echo test-write \
   | xargs -t uplink cp "${filepath}" "${sj_prefix}/${filename}" --progress=false --expires="$(date -d '10 days' -u +%FT%TZ)" --access \
