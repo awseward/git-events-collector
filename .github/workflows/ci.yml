@@ -3,7 +3,7 @@ name: CI
 on: [push]
 
 jobs:
-  build:
+  build-nim:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
@@ -25,3 +25,9 @@ jobs:
           nim-version: '1.4.0'
 
       - run: nimble build -y
+
+  shell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: awseward/gh-actions-shell@0.1.0
