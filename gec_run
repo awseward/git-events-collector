@@ -7,11 +7,12 @@ readonly url_base="${DW_INGEST_URL:-localhost:8080}"
 echo -en "\n=== " && date
 
 readonly sqlite_file="$(gec_rotate | xargs -t gec_tsv-to-sqlite)"
-
 [ "${sqlite_file}" == '' ] && exit 1
 
-readonly sj_path="$(echo "${sqlite_file}" | xargs -t gec_push)"
-
+readonly sj_prefix='sj://dw-inbox/git-events'
+readonly sj_path="$(
+  echo "${sqlite_file}" | xargs -t -I{} dw_push_sqlite {} "${sj_prefix}"
+)"
 [ "${sj_path}" == '' ] && exit 1
 
 # Temporary: May need to wake up what's currently a free-tier Heroku dyno
