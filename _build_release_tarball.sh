@@ -11,7 +11,6 @@ readonly tarball_name="${binary_name}-${tag_name}.tar.gz"
 >&2 nimble build --accept --define:release
 >&2 tar -czf "${tarball_name}" \
                "${binary_name}" \
-               gec_push \
                gec_rotate \
                gec_run \
                gec_tsv-to-sqlite
