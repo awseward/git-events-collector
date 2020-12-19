@@ -6,6 +6,6 @@ echo -en "\n=== " && date
 
 sqlite_file="$(gec_rotate | xargs -t gec_tsv-to-sqlite)"
 [ "${sqlite_file}" == '' ] && exit 1
-chmod -w "${sqlite_file}"
+chmod -v a-w "${sqlite_file}"
 
 dw_push 'git-events' "${sqlite_file}" 'sj://dw-inbox/git-events'
