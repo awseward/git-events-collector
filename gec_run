@@ -2,15 +2,35 @@
 
 set -euo pipefail
 
+sj_access_name() {
+  # Somewhat of a placeholder/shim-- this caller doesn't currently use an
+  # access name that varies from the default. However, this should eventually
+  # no longer be the case...
+  echo "${SJ_ACCESS_NAME:-}"
+}
+
+dw_push() {
+  local -r store="$1"
+  local -r sqlite_file="$2"
+  local -r sj_prefix="$3"
+
+  local -r sj_path="$(
+    echo "${sqlite_file}" \
+      | SJ_ACCESS_NAME="$(sj_access_name)" xargs -t -I{} dw_push_sqlite {} "${sj_prefix}"
+  )"
+  [ "${sj_path}" == '' ] && return 1
+
+  echo "${sj_path}" | xargs -t dw_signal_sqlite "${store}"
+}
+
+dw_run() { dw_push 'git-events' "$1" 'sj://dw-inbox/git-events'; }
+
+# ---
+
 echo -en "\n=== " && date
 
-readonly sqlite_file="$(gec_rotate | xargs -t gec_tsv-to-sqlite)"
+sqlite_file="$(gec_rotate | xargs -t gec_tsv-to-sqlite)"
 [ "${sqlite_file}" == '' ] && exit 1
+chmod -w "${sqlite_file}"
 
-readonly sj_prefix='sj://dw-inbox/git-events'
-readonly sj_path="$(
-  echo "${sqlite_file}" | xargs -t -I{} dw_push_sqlite {} "${sj_prefix}"
-)"
-[ "${sj_path}" == '' ] && exit 1
-
-echo "${sj_path}" | xargs -t dw_signal_sqlite 'git-events'
+dw_run "${sqlite_file}"
