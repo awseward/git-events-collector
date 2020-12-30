@@ -1,13 +1,11 @@
--- TODO: Give `action_templates` a package file...
-let GHA =
-      https://raw.githubusercontent.com/awseward/dhall-misc/6e59634e92acab9ae7159cf85596069648e12f89/action_templates/gha/jobs.dhall sha256:62d396ac46458a7f72ef02283f2fb259454ef1cd4cba73da954c3864e7eb9898
+let imports =
+      https://raw.githubusercontent.com/awseward/dhall-misc/0a6f0c9a9cc274b629c281a180e23a7d52d4b255/action_templates/package.dhall sha256:81940c41ebd445d5126b603d9e44555cc3c4282a6abb5d57bd5b8d36ccc5a893
 
-let Build =
-      https://raw.githubusercontent.com/awseward/dhall-misc/6e59634e92acab9ae7159cf85596069648e12f89/action_templates/NimBuild.dhall sha256:11e5f6b49f06d811a27954fdfe51888d80b9009acc61d4d4a632ec7aed8ba2d1
+let GHA = imports.gha/jobs
 
-let checkout =
-      ( https://raw.githubusercontent.com/awseward/dhall-misc/6e59634e92acab9ae7159cf85596069648e12f89/action_templates/gha/steps.dhall sha256:16f36e604030c9c9288654156468b236b361efca0b84f6b15e839cad10532bc4
-      ).checkout
+let Build = imports.NimBuild
+
+let checkout = imports.gha/steps.checkout
 
 let uses = GHA.Step.uses
 
