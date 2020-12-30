@@ -1,33 +1,34 @@
-name: CI
-
-on: [push]
+# Warning: this is a generated file; please avoid editing it manually unless
+# doing so temporarily.
 
 jobs:
-  build-nim:
-    runs-on: macos-latest
+  build-git_events_collector:
+    runs-on:
+      - macos-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Cache choosenim
-        id: cache-choosenim
-        uses: actions/cache@v1
+      - uses: "actions/checkout@v2"
+      - id: cache-choosenim
+        name: Cache choosenim
+        uses: "actions/cache@v1"
         with:
-          path: ~/.choosenim
-          key: ${{ runner.os }}-choosenim-stable
-      - name: Cache nimble
-        id: cache-nimble
-        uses: actions/cache@v1
+          key: "${{ runner.os }}-choosenim"
+          path: "~/.choosenim"
+      - id: cache-nimble
+        name: Cache nimble
+        uses: "actions/cache@v1"
         with:
-          path: ~/.nimble
-          key: ${{ runner.os }}-nimble-stable
-      - uses: jiro4989/setup-nim-action@v1.1.4
+          key: "${{ runner.os }}-nimble"
+          path: "~/.nimble"
+      - uses: "jiro4989/setup-nim-action@v1.2.3"
         with:
-          nim-version: '1.4.0'
-
-      - run: nimble build -y
-
-  shell:
-    runs-on: ubuntu-latest
+          nim-version: '1.4.2'
+      - run: nimble --stacktrace:on --linetrace:on  build --accept git_events_collector
+  check-shell:
+    runs-on:
+      - ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: awseward/gh-actions-shell@0.1.0
+      - uses: "actions/checkout@v2"
+      - uses: "awseward/gh-actions-shell@0.1.0"
+name: CI
+on:
+  - push
