@@ -19,3 +19,10 @@ on:
   push:
     tags:
       - "*"
+things:
+  - with:
+      body: "Checksum: `${{ steps.checksum.outputs.tarball_checksum }}`"
+      draft: 'false'
+      prerelease: 'false'
+      release_name: "${{ steps.plan.outputs.git_tag }}"
+      tag_name: "${{ steps.plan.outputs.git_tag }}"
