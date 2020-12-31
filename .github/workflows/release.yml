@@ -7,22 +7,32 @@ jobs:
         - macos-latest
       steps:
         - uses: "actions/checkout@v2"
+          with: {}
         - run: "echo 'TODO: plan'"
         - run: "echo 'TODO: nim setup'"
         - run: "echo 'TODO: tarball'"
         - run: "echo 'TODO: checksum'"
         - run: "echo 'TODO: create Relase'"
-        - run: "echo 'TODO: upload tarball'"
-        - run: "echo 'TODO: mislav/bump-homebrew-formula-action@v1.6'"
+        - id: upload_tarball
+          uses: "actions/upload-release-asset@v1"
+          with:
+            body: "Checksum: `${{ steps.checksum.outputs.tarball_checksum }}`"
+            draft: 'false'
+            prerelease: 'false'
+            release_name: "${{ steps.plan.outputs.git_tag }}"
+            tag_name: "${{ steps.plan.outputs.git_tag }}"
+        - uses: "mislav/bump-homebrew-formula-action@v1.6"
+          with:
+            base-branch: master
+            commit-message: |
+              {{formulaName}} {{version}}
+              
+              Sourced from ${{ steps.create_release.outputs.html_url }}.
+            download-url: "${{ steps.upload_tarball.outputs.browser_download_url }}"
+            formula-name: git_events_collector
+            homebrew-tap: awseward/homebrew-tap
 name: Release
 on:
   push:
     tags:
       - "*"
-things:
-  - with:
-      body: "Checksum: `${{ steps.checksum.outputs.tarball_checksum }}`"
-      draft: 'false'
-      prerelease: 'false'
-      release_name: "${{ steps.plan.outputs.git_tag }}"
-      tag_name: "${{ steps.plan.outputs.git_tag }}"
