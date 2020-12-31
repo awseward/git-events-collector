@@ -26,5 +26,18 @@ in  { name = "CI"
             ]
           }
         }
+      , { mapKey = "check-dhall"
+        , mapValue =
+          { runs-on = [ "ubuntu-latest" ]
+          , steps =
+            [ checkout
+            , uses
+                GHA.Uses::{
+                , uses = "awseward/gh-actions-dhall@0.2.2"
+                , `with` = toMap { dhallVersion = "1.37.1" }
+                }
+            ]
+          }
+        }
       ]
     }

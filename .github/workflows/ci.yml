@@ -7,7 +7,6 @@ jobs:
       - macos-latest
     steps:
       - uses: "actions/checkout@v2"
-        with: {}
       - id: cache-choosenim
         name: Cache choosenim
         uses: "actions/cache@v1"
@@ -24,14 +23,20 @@ jobs:
         with:
           nim-version: '1.4.2'
       - run: nimble --stacktrace:on --linetrace:on  build --accept git_events_collector
+  check-dhall:
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - uses: "actions/checkout@v2"
+      - uses: "awseward/gh-actions-dhall@0.2.2"
+        with:
+          dhallVersion: '1.37.1'
   check-shell:
     runs-on:
       - ubuntu-latest
     steps:
       - uses: "actions/checkout@v2"
-        with: {}
       - uses: "awseward/gh-actions-shell@0.1.0"
-        with: {}
 name: CI
 on:
   - push
