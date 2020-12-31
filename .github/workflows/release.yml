@@ -1,5 +1,8 @@
-# Warning: this is a generated file; please avoid editing it manually unless
-# doing so temporarily.
+# Warning: this is an automatically generated file.
+#
+# It was generated using '.github/.workflow_templates/release.dhall'.
+#
+# Please avoid editing it manually unless doing so temporarily.
 
 jobs:
   release-client:
@@ -40,7 +43,7 @@ jobs:
           set -euo pipefail
           
           TARBALL_FILENAME="$(./_build_release_tarball.sh "${GIT_TAG}")"
-          ls -lah
+          ls -lah --color=always
           export TARBALL_FILENAME
           export TARBALL_FILEPATH="./${TARBALL_FILENAME}"
           echo "TARBALL_FILENAME=${TARBALL_FILENAME}" >> "$GITHUB_ENV"
@@ -54,7 +57,8 @@ jobs:
           
           set -euo pipefail
           
-          TARBALL_CHECKSUM="$(shasum -a 256 "${TARBALL_FILENAME}" | cut -d ' ' -f1)"; export TARBALL_CHECKSUM
+          TARBALL_CHECKSUM="$(shasum -a 256 "${TARBALL_FILENAME}" | cut -d ' ' -f1)"
+          export TARBALL_CHECKSUM
           echo "TARBALL_CHECKSUM=${TARBALL_CHECKSUM}" >> "GITHUB_ENV"
           echo "::set-output name=tarball_checksum::${TARBALL_CHECKSUM}"
       - env:

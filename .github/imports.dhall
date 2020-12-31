@@ -1,5 +1,5 @@
 let action_templates =
-      https://raw.githubusercontent.com/awseward/dhall-misc/43f250d9c743ca2d06cc9f849015f021bdb6b53b/action_templates/package.dhall sha256:b8414ded01b53ae4f4a0452245a8f5d667950cb7ef1c8b34b74dc6f6b25c174b
+      https://raw.githubusercontent.com/awseward/dhall-misc/df33f30d4f96f1c511701de262fe5df63c6d9b4c/action_templates/package.dhall sha256:6a0abbf79af93f97ad0260008a33282796120cd8b8614a04ab73d0216acf0867
 
 let concat =
       https://raw.githubusercontent.com/dhall-lang/dhall-lang/v20.0.0/Prelude/List/concat sha256:54e43278be13276e03bd1afa89e562e94a0a006377ebea7db14c7562b0de292b
