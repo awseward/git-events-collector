@@ -1,6 +1,6 @@
 -- TODO: Implement the steps in this action's single job
 let imports =
-      https://raw.githubusercontent.com/awseward/dhall-misc/23bbedf525112d787334849b86caafa3310c4389/action_templates/package.dhall sha256:6a5145962730d7a0c7705a3b70803aaf22ee978f7fc1269aceca27100028ff31
+      https://raw.githubusercontent.com/awseward/dhall-misc/9a967340062856ffe6dc577b08d37047c2da563a/action_templates/package.dhall
 
 let Map =
       https://raw.githubusercontent.com/dhall-lang/dhall-lang/v20.0.0/Prelude/Map/Type.dhall sha256:210c7a9eba71efbb0f7a66b3dcf8b9d3976ffc2bc0e907aadfb6aa29c333e8ed
@@ -31,15 +31,29 @@ in  { name = "Release"
           { runs-on = [ "macos-latest" ]
           , steps =
             [ checkout
-            , run GHA.Run::{ run = "echo 'TODO: plan'" }
+            , run GHA.Run::{ id = Some "plan", run = "echo 'TODO: plan'" }
             , run GHA.Run::{ run = "echo 'TODO: nim setup'" }
             , run GHA.Run::{ run = "echo 'TODO: tarball'" }
             , run GHA.Run::{ run = "echo 'TODO: checksum'" }
-            , run GHA.Run::{ run = "echo 'TODO: create Relase'" }
+            , uses
+                GHA.Uses::{
+                , id = Some "create_release"
+                , uses = "actions/create-release@v1"
+                , env = toMap { GITHUB_TOKEN = "\${{ secrets.GITHUB_TOKEN }}" }
+                , `with` = toMap
+                    { tag_name = "\${{ steps.plan.outputs.git_tag }}"
+                    , release_name = "\${{ steps.plan.outputs.git_tag }}"
+                    , body =
+                        "Checksum: `\${{ steps.checksum.outputs.tarball_checksum }}`"
+                    , draft = "false"
+                    , prerelease = "false"
+                    }
+                }
             , uses
                 GHA.Uses::{
                 , id = Some "upload_tarball"
                 , uses = "actions/upload-release-asset@v1"
+                , env = toMap { GITHUB_TOKEN = "\${{ secrets.GITHUB_TOKEN }}" }
                 , `with` = toMap
                     { body =
                         "Checksum: `\${{ steps.checksum.outputs.tarball_checksum }}`"
@@ -52,6 +66,8 @@ in  { name = "Release"
             , uses
                 GHA.Uses::{
                 , uses = "mislav/bump-homebrew-formula-action@v1.6"
+                , env = toMap
+                    { COMMITTER_TOKEN = "\${{ secrets.COMMITTER_TOKEN }}" }
                 , `with` = toMap
                     { formula-name = "git_events_collector"
                     , homebrew-tap = "awseward/homebrew-tap"
