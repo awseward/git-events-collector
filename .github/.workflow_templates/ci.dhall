@@ -14,15 +14,17 @@ let checkedOut =
 
 let uses = GHA.Step.uses
 
-let Job = { runs-on : List Text, steps : List GHA.Step }
+let collectJobs =
+      let Job = { runs-on : List Text, steps : List GHA.Step }
 
-let JobEntry = { mapKey : Text, mapValue : Job }
+      let JobEntry = { mapKey : Text, mapValue : Job }
+
+      in  imports.concat JobEntry
 
 in  { name = "CI"
     , on = [ "push" ]
     , jobs =
-        imports.concat
-          JobEntry
+        collectJobs
           [ [ Build.mkJob
                 Build.Opts::{
                 , platforms = [ "macos-latest" ]
