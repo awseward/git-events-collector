@@ -38,16 +38,19 @@ in  { name = "Release"
                 , [ run
                       GHA.Run::{
                       , id = Some "plan"
-                      , run = ./release/checksum.sh as Text
+                      , name = Some "Plan release"
+                      , run = ./release/plan.sh as Text
                       }
                   , run
                       GHA.Run::{
                       , id = Some "tarball"
+                      , name = Some "Create tarball"
                       , run = ./release/tarball.sh as Text
                       }
                   , run
                       GHA.Run::{
                       , id = Some "checksum"
+                      , name = Some "Record checksum"
                       , run = ./release/checksum.sh as Text
                       }
                   , uses
