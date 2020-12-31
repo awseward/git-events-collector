@@ -10,14 +10,7 @@ let run = GHA.Step.run
 
 let uses = GHA.Step.uses
 
-let release =
-      let Opts =
-            { Type =
-                { formula-name : Text, homebrew-tap : Text, base-branch : Text }
-            , default.base-branch = "master"
-            }
-
-      in  { mkSteps = λ(opts : Opts.Type) → [] : List GHA.Step, Opts }
+let release = action_templates.release
 
 let fmtCommitMsg =
       λ(header : Text) →
