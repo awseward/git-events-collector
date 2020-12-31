@@ -3,7 +3,7 @@
 , gh-actions-dhall =
     https://raw.githubusercontent.com/awseward/gh-actions-dhall/0.2.4/job.dhall sha256:0b2e1700a8ff61bdcd491a828974963544264dd062889b4eb0371be65b86b479
 , gh-actions-shell =
-    https://raw.githubusercontent.com/awseward/gh-actions-shell/0.1.2/job.dhall
+    https://raw.githubusercontent.com/awseward/gh-actions-shell/0.1.2/job.dhall sha256:823c2e674988f61efcb33f757675c104e788172b5316e1c4a65e7f3cafa9d015
 , Map =
     https://raw.githubusercontent.com/dhall-lang/dhall-lang/v20.0.0/Prelude/Map/Type.dhall sha256:210c7a9eba71efbb0f7a66b3dcf8b9d3976ffc2bc0e907aadfb6aa29c333e8ed
 , concat =
