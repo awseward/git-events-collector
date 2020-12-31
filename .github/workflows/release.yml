@@ -72,11 +72,10 @@ jobs:
         id: upload_tarball
         uses: "actions/upload-release-asset@v1"
         with:
-          body: "Checksum: `${{ steps.checksum.outputs.tarball_checksum }}`"
-          draft: 'false'
-          prerelease: 'false'
-          release_name: "${{ steps.plan.outputs.git_tag }}"
-          tag_name: "${{ steps.plan.outputs.git_tag }}"
+          asset_content_type: application/gzip
+          asset_name: "${{ steps.tarball.outputs.tarball_filename }}"
+          asset_path: "${{ steps.tarball.outputs.tarball_filepath }}"
+          upload_url: "${{ steps.create_release.outputs.upload_url }}"
       - env:
           COMMITTER_TOKEN: "${{ secrets.COMMITTER_TOKEN }}"
         uses: "mislav/bump-homebrew-formula-action@v1.6"
