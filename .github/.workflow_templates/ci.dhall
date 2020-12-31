@@ -1,11 +1,14 @@
-let imports =
-      https://raw.githubusercontent.com/awseward/dhall-misc/23bbedf525112d787334849b86caafa3310c4389/action_templates/package.dhall sha256:6a5145962730d7a0c7705a3b70803aaf22ee978f7fc1269aceca27100028ff31
+let imports = ../imports.dhall
 
-let GHA = imports.gha/jobs
+let action_templates = imports.action_templates
 
-let Build = imports.NimBuild
+let check-dhall = imports.check-dhall
 
-let checkout = imports.gha/steps.checkout
+let GHA = action_templates.gha/jobs
+
+let Build = action_templates.NimBuild
+
+let checkout = action_templates.gha/steps.checkout
 
 let uses = GHA.Step.uses
 
@@ -31,11 +34,7 @@ in  { name = "CI"
           { runs-on = [ "ubuntu-latest" ]
           , steps =
             [ checkout
-            , uses
-                GHA.Uses::{
-                , uses = "awseward/gh-actions-dhall@0.2.2"
-                , `with` = toMap { dhallVersion = "1.37.1" }
-                }
+            , check-dhall.mkJob check-dhall.Inputs::{ dhallVersion = "1.37.1" }
             ]
           }
         }
