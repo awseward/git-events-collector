@@ -14,45 +14,40 @@ let checkedOut =
 
 let uses = GHA.Step.uses
 
-let JobKey = Text
+let Job = { runs-on : List Text, steps : List GHA.Step }
 
-let JobVal = { runs-on : List Text, steps : List GHA.Step }
-
-let JobEntry = { mapKey : JobKey, mapValue : JobVal }
-
-let Jobs = imports.Map JobKey JobVal
+let JobEntry = { mapKey : Text, mapValue : Job }
 
 in  { name = "CI"
     , on = [ "push" ]
     , jobs =
-          imports.concat
-            JobEntry
-            [ [ Build.mkJob
-                  Build.Opts::{
-                  , platforms = [ "macos-latest" ]
-                  , bin = "git_events_collector"
-                  }
-              ]
-            , toMap
-                { check-shell =
-                  { runs-on = [ "ubuntu-latest" ]
-                  , steps =
-                      checkedOut
-                        [ let a = imports.gh-actions-shell
-
-                          in  a.mkJob a.Inputs::{=}
-                        ]
-                  }
-                , check-dhall =
-                  { runs-on = [ "ubuntu-latest" ]
-                  , steps =
-                      checkedOut
-                        [ let a = imports.gh-actions-dhall
-
-                          in  a.mkJob a.Inputs::{ dhallVersion = "1.37.1" }
-                        ]
-                  }
+        imports.concat
+          JobEntry
+          [ [ Build.mkJob
+                Build.Opts::{
+                , platforms = [ "macos-latest" ]
+                , bin = "git_events_collector"
                 }
             ]
-        : Jobs
+          , toMap
+              { check-shell =
+                { runs-on = [ "ubuntu-latest" ]
+                , steps =
+                    checkedOut
+                      [ let a = imports.gh-actions-shell
+
+                        in  a.mkJob a.Inputs::{=}
+                      ]
+                }
+              , check-dhall =
+                { runs-on = [ "ubuntu-latest" ]
+                , steps =
+                    checkedOut
+                      [ let a = imports.gh-actions-dhall
+
+                        in  a.mkJob a.Inputs::{ dhallVersion = "1.37.1" }
+                      ]
+                }
+              }
+          ]
     }
