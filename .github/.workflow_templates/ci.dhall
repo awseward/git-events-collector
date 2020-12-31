@@ -1,42 +1,37 @@
 let imports = ../imports.dhall
 
-let action_templates = imports.action_templates
+let Build = imports.action_templates.NimBuild
 
-let GHA = action_templates.gha/jobs
+let check-dhall = imports.gh-actions-dhall
 
-let Build = action_templates.NimBuild
+let check-shell = imports.gh-actions-shell
 
-let checkout = action_templates.gha/steps.checkout
-
-let uses = GHA.Step.uses
+let checkedOut = imports.checkedOut
 
 in  { name = "CI"
     , on = [ "push" ]
     , jobs =
-      [ Build.mkJob
-          Build.Opts::{
-          , platforms = [ "macos-latest" ]
-          , bin = "git_events_collector"
-          }
-      , { mapKey = "check-shell"
-        , mapValue =
-          { runs-on = [ "ubuntu-latest" ]
-          , steps =
-            [ checkout
-            , uses GHA.Uses::{ uses = "awseward/gh-actions-shell@0.1.0" }
+        imports.collectJobs
+          [ [ Build.mkJob
+                Build.Opts::{
+                , platforms = [ "macos-latest" ]
+                , bin = "git_events_collector"
+                }
             ]
-          }
-        }
-      , { mapKey = "check-dhall"
-        , mapValue =
-          { runs-on = [ "ubuntu-latest" ]
-          , steps =
-            [ checkout
-            , let a = imports.gh-actions-dhall
-
-              in  a.mkJob a.Inputs::{ dhallVersion = "1.37.1" }
-            ]
-          }
-        }
-      ]
+          , toMap
+              { check-shell =
+                { runs-on = [ "ubuntu-latest" ]
+                , steps =
+                    checkedOut [ check-shell.mkJob check-shell.Inputs::{=} ]
+                }
+              , check-dhall =
+                { runs-on = [ "ubuntu-latest" ]
+                , steps =
+                    checkedOut
+                      [ check-dhall.mkJob
+                          check-dhall.Inputs::{ dhallVersion = "1.37.1" }
+                      ]
+                }
+              }
+          ]
     }

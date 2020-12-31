@@ -36,7 +36,7 @@ jobs:
       - ubuntu-latest
     steps:
       - uses: "actions/checkout@v2"
-      - uses: "awseward/gh-actions-shell@0.1.0"
+      - uses: "awseward/gh-actions-shell@0.1.2"
 name: CI
 on:
   - push
