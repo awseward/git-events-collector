@@ -16,7 +16,7 @@ in  { name = "Release"
           , steps =
               imports.concat
                 GHA.Step
-                [ NimSetup.mkSteps NimSetup.Opts::{ nimVersion = "1.4.0" }
+                [ NimSetup.mkSteps NimSetup.Opts::{ nimVersion = "1.4.2" }
                 , release.mkSteps
                     release.Opts::{
                     , formula-name = "git_events_collector"
