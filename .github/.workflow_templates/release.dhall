@@ -1,4 +1,3 @@
--- TODO: Implement the steps in this action's single job
 let imports =
       { action_templates =
           https://raw.githubusercontent.com/awseward/dhall-misc/43f250d9c743ca2d06cc9f849015f021bdb6b53b/action_templates/package.dhall
@@ -40,10 +39,21 @@ in  { name = "Release"
               imports.concat
                 GHA.Step
                 [ NimSetup.mkSteps NimSetup.Opts::{=}
-                , [ run GHA.Run::{ id = Some "plan", run = "echo 'TODO: plan'" }
-                  , run GHA.Run::{ run = "echo 'TODO: nim setup'" }
-                  , run GHA.Run::{ run = "echo 'TODO: tarball'" }
-                  , run GHA.Run::{ run = "echo 'TODO: checksum'" }
+                , [ run
+                      GHA.Run::{
+                      , id = Some "plan"
+                      , run = ./release/checksum.sh as Text
+                      }
+                  , run
+                      GHA.Run::{
+                      , id = Some "tarball"
+                      , run = ./release/tarball.sh as Text
+                      }
+                  , run
+                      GHA.Run::{
+                      , id = Some "checksum"
+                      , run = ./release/checksum.sh as Text
+                      }
                   , uses
                       GHA.Uses::{
                       , id = Some "create_release"
