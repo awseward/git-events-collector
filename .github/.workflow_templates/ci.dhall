@@ -1,5 +1,5 @@
 let imports =
-      https://raw.githubusercontent.com/awseward/dhall-misc/0a6f0c9a9cc274b629c281a180e23a7d52d4b255/action_templates/package.dhall sha256:81940c41ebd445d5126b603d9e44555cc3c4282a6abb5d57bd5b8d36ccc5a893
+      https://raw.githubusercontent.com/awseward/dhall-misc/23bbedf525112d787334849b86caafa3310c4389/action_templates/package.dhall sha256:6a5145962730d7a0c7705a3b70803aaf22ee978f7fc1269aceca27100028ff31
 
 let GHA = imports.gha/jobs
 
