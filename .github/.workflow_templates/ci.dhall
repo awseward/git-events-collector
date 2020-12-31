@@ -2,8 +2,6 @@ let imports = ../imports.dhall
 
 let action_templates = imports.action_templates
 
-let check-dhall = imports.check-dhall
-
 let GHA = action_templates.gha/jobs
 
 let Build = action_templates.NimBuild
@@ -34,7 +32,9 @@ in  { name = "CI"
           { runs-on = [ "ubuntu-latest" ]
           , steps =
             [ checkout
-            , check-dhall.mkJob check-dhall.Inputs::{ dhallVersion = "1.37.1" }
+            , let a = imports.gh-actions-dhall
+
+              in  a.mkJob a.Inputs::{ dhallVersion = "1.37.1" }
             ]
           }
         }
