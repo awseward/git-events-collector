@@ -1,30 +1,17 @@
 let imports = ../imports.dhall
 
-let action_templates = imports.action_templates
+let Build = imports.action_templates.NimBuild
 
-let GHA = action_templates.gha/jobs
+let check-dhall = imports.gh-actions-dhall
 
-let Build = action_templates.NimBuild
+let check-shell = imports.gh-actions-shell
 
-let checkedOut =
-      λ(steps : List GHA.Step) →
-        imports.concat
-          GHA.Step
-          [ [ action_templates.gha/steps.checkout ], steps ]
-
-let uses = GHA.Step.uses
-
-let collectJobs =
-      let Job = { runs-on : List Text, steps : List GHA.Step }
-
-      let JobEntry = { mapKey : Text, mapValue : Job }
-
-      in  imports.concat JobEntry
+let checkedOut = imports.checkedOut
 
 in  { name = "CI"
     , on = [ "push" ]
     , jobs =
-        collectJobs
+        imports.collectJobs
           [ [ Build.mkJob
                 Build.Opts::{
                 , platforms = [ "macos-latest" ]
@@ -35,19 +22,14 @@ in  { name = "CI"
               { check-shell =
                 { runs-on = [ "ubuntu-latest" ]
                 , steps =
-                    checkedOut
-                      [ let a = imports.gh-actions-shell
-
-                        in  a.mkJob a.Inputs::{=}
-                      ]
+                    checkedOut [ check-shell.mkJob check-shell.Inputs::{=} ]
                 }
               , check-dhall =
                 { runs-on = [ "ubuntu-latest" ]
                 , steps =
                     checkedOut
-                      [ let a = imports.gh-actions-dhall
-
-                        in  a.mkJob a.Inputs::{ dhallVersion = "1.37.1" }
+                      [ check-dhall.mkJob
+                          check-dhall.Inputs::{ dhallVersion = "1.37.1" }
                       ]
                 }
               }
