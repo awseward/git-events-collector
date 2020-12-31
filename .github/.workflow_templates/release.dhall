@@ -75,12 +75,13 @@ in  { name = "Release"
                       , env = toMap
                           { GITHUB_TOKEN = "\${{ secrets.GITHUB_TOKEN }}" }
                       , `with` = toMap
-                          { body =
-                              "Checksum: `\${{ steps.checksum.outputs.tarball_checksum }}`"
-                          , draft = "false"
-                          , prerelease = "false"
-                          , release_name = "\${{ steps.plan.outputs.git_tag }}"
-                          , tag_name = "\${{ steps.plan.outputs.git_tag }}"
+                          { asset_content_type = "application/gzip"
+                          , asset_name =
+                              "\${{ steps.tarball.outputs.tarball_filename }}"
+                          , asset_path =
+                              "\${{ steps.tarball.outputs.tarball_filepath }}"
+                          , upload_url =
+                              "\${{ steps.create_release.outputs.upload_url }}"
                           }
                       }
                   , uses
