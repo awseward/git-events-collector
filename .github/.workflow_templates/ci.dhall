@@ -1,35 +1,49 @@
 let imports = ../imports.dhall
 
-let Build = imports.action_templates.NimBuild
+let GHA = imports.GHA
 
-let check-dhall = imports.gh-actions-dhall
+let On = GHA.On
 
-let check-shell = imports.gh-actions-shell
+let Checkout = imports.action_templates.actions/Checkout
 
-let checkedOut = imports.checkedOut
+let nim/Build = imports.action_templates.nim/Build
 
-in  { name = "CI"
-    , on = [ "push" ]
+let collectJobs = imports.concat { mapKey : Text, mapValue : GHA.Job.Type }
+
+in  GHA.Workflow::{
+    , name = "CI"
+    , on = On.names [ "push" ]
     , jobs =
-        imports.collectJobs
-          [ [ Build.mkJob
-                Build.Opts::{
+        collectJobs
+          [ [ nim/Build.mkJobEntry
+                nim/Build.Opts::{
                 , platforms = [ "macos-latest" ]
                 , bin = "git_events_collector"
                 }
             ]
           , toMap
-              { check-shell =
-                { runs-on = [ "ubuntu-latest" ]
+              { check-shell = GHA.Job::{
+                , runs-on = [ "ubuntu-latest" ]
                 , steps =
-                    checkedOut [ check-shell.mkJob check-shell.Inputs::{=} ]
+                    Checkout.plainDo
+                      [ [ let action = imports.gh-actions-shell
+
+                          in  action.mkStep
+                                action.Common::{=}
+                                action.Inputs::{=}
+                        ]
+                      ]
                 }
-              , check-dhall =
-                { runs-on = [ "ubuntu-latest" ]
+              , check-dhall = GHA.Job::{
+                , runs-on = [ "ubuntu-latest" ]
                 , steps =
-                    checkedOut
-                      [ check-dhall.mkJob
-                          check-dhall.Inputs::{ dhallVersion = "1.37.1" }
+                    Checkout.plainDo
+                      [ [ let action = imports.gh-actions-dhall
+
+                          in  action.mkStep
+                                action.Common::{=}
+                                action.Inputs::{ dhallVersion = "1.37.1" }
+                        ]
                       ]
                 }
               }
