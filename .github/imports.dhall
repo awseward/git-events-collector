@@ -5,5 +5,5 @@
   , gh-actions-shell =
       https://raw.githubusercontent.com/awseward/gh-actions-shell/0.1.3/package.dhall sha256:422e828ace13b7fb64d67b0834d942928ae4816fae80bfabe024b1709f5bd677
   }
-⫽ ( https://raw.githubusercontent.com/awseward/dhall-misc/92efe30d19f7de27b4def32c3e0cb1a81134395d/package.dhall sha256:3d0b2b5ab2b16b87ce49f4eb272722c165f4975dd8c3c78b0ea3833b533250ab
+⫽ ( https://raw.githubusercontent.com/awseward/dhall-misc/202101060638/package.dhall sha256:f4fc44ac6100fd2616f95ba5f61ee8682bbbae38fce34214d90f8c4de6755404
   ).{ action_templates, GHA }
