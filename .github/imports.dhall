@@ -1,9 +1,9 @@
   { concat =
       https://raw.githubusercontent.com/dhall-lang/dhall-lang/v20.0.0/Prelude/List/concat sha256:54e43278be13276e03bd1afa89e562e94a0a006377ebea7db14c7562b0de292b
   , gh-actions-dhall =
-      https://raw.githubusercontent.com/awseward/gh-actions-dhall/0.2.5/package.dhall sha256:5d3e05eda8f21123a614b8bfc301d5bf3a0ae1898c0b117ac3d38cabc8a2ca98
+      https://raw.githubusercontent.com/awseward/gh-actions-dhall/0.2.7/package.dhall sha256:fccc11355b1730a9798ad637eb8308ddb08fd4699e840c63996f8cf6b3e0ad93
   , gh-actions-shell =
-      https://raw.githubusercontent.com/awseward/gh-actions-shell/0.1.3/package.dhall sha256:422e828ace13b7fb64d67b0834d942928ae4816fae80bfabe024b1709f5bd677
+      https://raw.githubusercontent.com/awseward/gh-actions-shell/0.1.4/package.dhall sha256:422e828ace13b7fb64d67b0834d942928ae4816fae80bfabe024b1709f5bd677
   }
-⫽ ( https://raw.githubusercontent.com/awseward/dhall-misc/202101060638/package.dhall sha256:f4fc44ac6100fd2616f95ba5f61ee8682bbbae38fce34214d90f8c4de6755404
+⫽ ( https://raw.githubusercontent.com/awseward/dhall-misc/20210118153535/package.dhall sha256:41a1e0438d4a08c20a571137b1ad1a9b80ca6cb2dd7c652979099ab35e3c3afb
   ).{ action_templates, GHA }
