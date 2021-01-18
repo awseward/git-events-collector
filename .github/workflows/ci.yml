@@ -31,7 +31,7 @@ jobs:
       - ubuntu-latest
     steps:
       - uses: "actions/checkout@v2"
-      - uses: "awseward/gh-actions-dhall@0.2.5"
+      - uses: "awseward/gh-actions-dhall@0.2.7"
         with:
           dhallVersion: '1.37.1'
   check-shell:
