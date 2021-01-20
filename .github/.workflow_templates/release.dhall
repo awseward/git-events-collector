@@ -6,13 +6,11 @@ let On = GHA.On
 
 let OS = GHA.OS.Type
 
-let action_templates = imports.action_templates
+let Checkout = imports.actions-catalog.actions/checkout
 
-let Checkout = action_templates.actions/Checkout
+let nim/Setup = imports.action_templates.nim/Setup
 
-let nim/Setup = action_templates.nim/Setup
-
-let Release = action_templates.release
+let Release = imports.action_templates.release
 
 in  GHA.Workflow::{
     , name = "Release"
