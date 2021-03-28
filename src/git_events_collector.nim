@@ -42,6 +42,6 @@ let p = newParser(AppName):
       echo "version:  ", pkgVersion
       echo "revision: ", pkgRevision
     elif commandLineParams().len == 0:
-      echo p.help
+      echo "Pass `-h` or `--help` for usage info."
 
 p.run

@@ -20,7 +20,7 @@ in  GHA.Workflow::{
           , runs-on = [ OS.macos-latest ]
           , steps =
               Checkout.plainDo
-                (   nim/Setup.mkSteps nim/Setup.Opts::{ nimVersion = "1.4.2" }
+                (   nim/Setup.mkSteps nim/Setup.Opts::{ nimVersion = "1.4.4" }
                   # Release.mkSteps
                       Release.Opts::{
                       , formula-name = "git_events_collector"
