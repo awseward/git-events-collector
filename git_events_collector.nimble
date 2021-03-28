@@ -11,8 +11,8 @@ bin           = @["git_events_collector"]
 
 # Dependencies
 
-requires "argparse == 0.10.1"
-requires "nim >= 1.4.2"
+requires "argparse >= 2.0.0"
+requires "nim >= 1.4.4"
 
 requires "https://github.com/awseward/nim-junk-drawer#9ff04c5c70b2fe5d24f951f0ff8f408a108ee059"
 

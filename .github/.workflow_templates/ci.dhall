@@ -12,6 +12,8 @@ let Checkout = actions.actions/checkout
 
 let nim/Build = imports.action_templates.nim/Build
 
+let nim/Setup = imports.action_templates.nim/Setup
+
 in  GHA.Workflow::{
     , name = "CI"
     , on = On.names [ "push" ]
@@ -20,6 +22,7 @@ in  GHA.Workflow::{
               nim/Build.Opts::{
               , platforms = [ OS.macos-latest ]
               , bin = "git_events_collector"
+              , nimSetup = nim/Setup.Opts::{ nimVersion = "1.4.4" }
               }
           ]
         # toMap
