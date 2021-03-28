@@ -1,6 +1,6 @@
 # git-events-collector
 
-### Installation
+## Installation
 
 ```sh
 brew install awseward/homebrew-tap/git_events_collector
@@ -18,3 +18,5 @@ mkdir -p /tmp/log
 touch /tmp/log/gec_run.log
 chown "${USER}" /tmp/log/gec_run.log
 ```
+
+## [Changelog](/CHANGELOG.md)
