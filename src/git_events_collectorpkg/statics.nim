@@ -4,7 +4,7 @@ import strutils
 import os
 
 proc getPkgVersion(): string {.compileTime.} =
-  const filepath = staticExec("ls ../*.nimble").splitLines()[0]
+  const filepath = staticExec("ls ../../*.nimble").splitLines()[0]
   var stream: StringStream
   try:
     stream = newStringStream slurp(filePath)

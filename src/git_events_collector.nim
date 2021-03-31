@@ -1,11 +1,9 @@
 import argparse
-import strformat
 import sugar
 import system
 
-import ./statics
-
 import git_events_collectorpkg/submodule
+import git_events_collectorpkg/statics
 
 const AppName = "git_events_collector"
 
