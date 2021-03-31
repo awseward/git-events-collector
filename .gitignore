@@ -20,3 +20,6 @@ git_events_collector
 
 # misc
 tmp/
+
+# direnv
+.envrc
