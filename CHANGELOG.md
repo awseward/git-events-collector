@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.3.2] 2021-04-02
 ### Changed
 - Get the SQLite db component moved into `$XDG_DATA_HOME` also (https://github.com/awseward/git-events-collector/pull/52)
 
