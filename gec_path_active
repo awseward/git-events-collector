@@ -2,5 +2,5 @@
 
 set -euo pipefail
 
-readonly data_dir="$(./gec_path_data_dir)"
+readonly data_dir="$(gec_path_data_dir)"
 echo "${data_dir}/active.log"

@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-readonly data_dir="$(./gec_path_data_dir)"
+readonly data_dir="$(gec_path_data_dir)"
 
 readonly outbox_dir="${data_dir}/_outbox"; mkdir -p "${outbox_dir}"
 readonly log_ln="${data_dir}/active.log"
