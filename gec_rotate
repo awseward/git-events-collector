@@ -2,10 +2,7 @@
 
 set -euo pipefail
 
-default_data_dir="${XDG_DATA_HOME:-${HOME}/.share/local}/git-events"
-data_dir="${RUN_BASE_DIR:-${default_data_dir}}"
-readonly data_dir="$(realpath "${data_dir}")"
->&2 mkdir -p "${data_dir}"
+readonly data_dir="$(./gec_path_data_dir)"
 
 readonly outbox_dir="${data_dir}/_outbox"; mkdir -p "${outbox_dir}"
 readonly log_ln="${data_dir}/active.log"
