@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] 2021-04-01
+### Fixed
+- Remove leading `./` from `get_path*` invocations
+- Ensure new `gec_path*` files get included in release tarball
+
 ## [0.3.0] 2021-04-01
 ### Added
 - BSD 3-Clause License (https://github.com/awseward/call_status/pull/122)

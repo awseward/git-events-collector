@@ -10,10 +10,6 @@ echo "${binary_name}" \
   | xargs -t >&2 nimble build --accept --define:release --stacktrace:on \
                    --linetrace:on
 
-echo "${binary_name}" \
-  | xargs -t >&2 tar -czf "${tarball_name}" \
-                            gec_rotate \
-                            gec_run \
-                            gec_tsv-to-sqlite
+echo "${binary_name}" | xargs -t >&2 tar -czf "${tarball_name}" gec_*
 
 echo "${tarball_name}"
