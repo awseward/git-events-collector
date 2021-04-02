@@ -2,16 +2,14 @@
 
 set -euo pipefail
 
-base_dir="${RUN_BASE_DIR:-$HOME}"
-readonly base_dir="$(realpath "${base_dir}")"
+readonly data_dir="$(./gec_path_data_dir)"
 
-readonly logs_dir="${base_dir}/.git-events";    mkdir -p "${logs_dir}"
-readonly logs_dir_outbox="${logs_dir}/_outbox"; mkdir -p "${logs_dir_outbox}"
-readonly log_ln="${base_dir}/.git-events.log"
+readonly outbox_dir="${data_dir}/_outbox"; mkdir -p "${outbox_dir}"
+readonly log_ln="${data_dir}/active.log"
 
 _close_log() {
   local -r src="$1"
-  local -r dest="${logs_dir_outbox}/$(basename "${src}")"
+  local -r dest="${outbox_dir}/$(basename "${src}")"
 
   >&2 chmod -v 400 "${src}"
   mv "${src}" "${dest}"
@@ -22,7 +20,7 @@ _close_log() {
 if [ ! -f "${log_ln}" ]; then
   >&2 echo "${log_ln} does not exist -- setting it up"
 
-  readonly log_new="${logs_dir}/$(date +%s).log"
+  readonly log_new="${data_dir}/$(date +%s).log"
   touch "${log_new}"
   ln -fs "${log_new}" "${log_ln}"
 
@@ -35,7 +33,7 @@ log_active="$(realpath -e "${log_ln}")"
 if [ "${log_ln}" = "${log_active}" ]; then
   >&2 echo "${log_ln} is not a symlink -- making it one"
 
-  migrated_log="${logs_dir}/migrated-$(date +%s).log"
+  migrated_log="${data_dir}/migrated-$(date +%s).log"
   mv "${log_ln}" "${migrated_log}"
   ln -fs "${migrated_log}" "${log_ln}"
 fi
@@ -47,7 +45,7 @@ log_active="$(realpath -e "${log_ln}")"
 log_inactive="${log_active}"
 
 # Point symlink at new file
-readonly log_new="${logs_dir}/$(date +%s).log"
+readonly log_new="${data_dir}/$(date +%s).log"
 touch "${log_new}"
 ln -fs "${log_new}" "${log_ln}"
 
