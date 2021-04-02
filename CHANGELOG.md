@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - BSD 3-Clause License (https://github.com/awseward/call_status/pull/122)
+- Use XDG base dir(s) (https://github.com/awseward/git-events-collector/pull/49)
+- Provide `gec_path*` executables `gec_path_active` and `get_path_data_dir` for quering app locations on disk (https://github.com/awseward/git-events-collector/pull/49)
 
 ### Changed
 - Upgrade dependency versions - `nim`: `>=1.4.2 → >=1.4.4`, `argparse`: `>=0.10.1 → >=2.0.0` (https://github.com/awseward/git-events-collector/pull/46)
