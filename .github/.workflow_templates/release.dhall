@@ -8,9 +8,9 @@ let OS = GHA.OS.Type
 
 let Checkout = imports.actions-catalog.actions/checkout
 
-let nim/Setup = imports.action_templates.nim/Setup
+let nim/Setup = imports.job-templates.nim/Setup
 
-let Release = imports.action_templates.release
+let Release = imports.job-templates.release
 
 in  GHA.Workflow::{
     , name = "Release"
