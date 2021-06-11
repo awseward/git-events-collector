@@ -43,7 +43,7 @@ in  GHA.Workflow::{
 
                       in  A.mkStep
                             A.Common::{=}
-                            A.Inputs::{ dhallVersion = "1.37.1" }
+                            A.Inputs::{ dhallVersion = "1.39.0" }
                     ]
               }
             }
