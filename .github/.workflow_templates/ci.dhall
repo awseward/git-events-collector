@@ -41,9 +41,7 @@ in  GHA.Workflow::{
                   Checkout.plainDo
                     [ let A = actions.awseward/gh-actions-dhall
 
-                      in  A.mkStep
-                            A.Common::{=}
-                            A.Inputs::{ dhallVersion = "1.39.0" }
+                      in  A.mkStep A.Common::{=} A.Inputs::{=}
                     ]
               }
             }
