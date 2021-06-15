@@ -1,5 +1,5 @@
 let dhall-misc =
-      https://raw.githubusercontent.com/awseward/dhall-misc/20210612002520/package.dhall
-        sha256:09eecf28e32dd179bc8a3500ac0ed4c312c6f793e2ca588d297fac0187f6e85e
+      https://raw.githubusercontent.com/awseward/dhall-misc/20210615160625/package.dhall
+        sha256:f2f63279600b19f733c04683286b9a955886d64b89589aee251bfb3643d18218
 
 in  dhall-misc.{ actions-catalog, job-templates, GHA }

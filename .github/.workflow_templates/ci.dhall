@@ -1,5 +1,7 @@
 let imports = ../imports.dhall
 
+let config = ../config.dhall
+
 let GHA = imports.GHA
 
 let On = GHA.On
@@ -12,8 +14,6 @@ let Checkout = actions.actions/checkout
 
 let nim/Build = imports.job-templates.nim/Build
 
-let nim/Setup = imports.job-templates.nim/Setup
-
 in  GHA.Workflow::{
     , name = "CI"
     , on = On.names [ "push" ]
@@ -22,7 +22,7 @@ in  GHA.Workflow::{
               nim/Build.Opts::{
               , platforms = [ OS.macos-latest ]
               , bin = "git_events_collector"
-              , nimSetup = nim/Setup.Opts::{ nimVersion = "1.4.4" }
+              , nimSetup = config.nimSetup.opts
               }
           ]
         # toMap
