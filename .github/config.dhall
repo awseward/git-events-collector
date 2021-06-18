@@ -1,10 +1,12 @@
 let imports = ./imports.dhall
 
-let defaultBranch = "main"
-
 let versions = { dhall = "1.39.0", nim = "1.4.4" }
 
-in  { defaultBranch
+in  { defaultBranch = "main"
+    , homebrew =
+      { formula-name = "git_events_collector"
+      , homebrew-tap = "awseward/homebrew-tap"
+      }
     , nimSetup =
         let J_ = imports.job-templates.nim/Setup
 
