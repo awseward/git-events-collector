@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Various CI updates (https://github.com/awseward/git-events-collector/pull/54, https://github.com/awseward/git-events-collector/pull/55, https://github.com/awseward/git-events-collector/pull/56, https://github.com/awseward/git-events-collector/pull/57)
+- Add handling for `events.remote` (https://github.com/awseward/git-events-collector/pull/58)
 
 ## [0.3.2] 2021-04-02
 ### Changed
