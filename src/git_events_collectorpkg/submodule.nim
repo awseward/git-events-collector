@@ -12,6 +12,7 @@ type Event* = object
   hook*: string
   repo*: string
   `ref`*: string
+  remote*: string
 
 proc parseUtcISO(input: string): DateTime =
   input.replace("T", " ").replace("Z", "").parse("yyyy-MM-dd HH:mm:ss", utc())
@@ -23,7 +24,8 @@ proc fromLine(line: string): Event =
     timestamp: parseUtcISO(parts[1]),
     hook: parts[2],
     repo: parts[3],
-    `ref`: parts[4]
+    `ref`: parts[4],
+    remote: parts[5]
   )
 
 proc fromFile*(path: string): seq[Event] =
@@ -42,15 +44,18 @@ proc dbSetup*(db_open: (proc: DbConn)) =
       timestamp DATETIME NOT NULL,
       hook      TEXT NOT NULL,
       repo      TEXT NOT NULL,
-      ref       TEXT NOT NULL
+      ref       TEXT NOT NULL,
+      -- Added `remote` in 0.1.1; locations which haven't upgraded won't be writing this yet
+      remote    TEXT
     )"""
   # echo query.string
   db_open.use conn: conn.exec query
 
 proc loadDb*(db_open: (proc: DbConn), event: Event) =
   let query = sql """
-    INSERT INTO events (version, timestamp, hook, repo, ref)
-      VALUES (?, ?, ?, ?, ?)
+    INSERT INTO events
+             (version, timestamp, hook, repo, ref, remote)
+      VALUES (      ?,         ?,    ?,    ?,   ?,      ?)
   """
   # echo query.string
   db_open.use conn:
@@ -59,5 +64,6 @@ proc loadDb*(db_open: (proc: DbConn), event: Event) =
       $event.timestamp,
       event.hook,
       event.repo,
-      event.`ref`
+      event.`ref`,
+      event.remote
     )
