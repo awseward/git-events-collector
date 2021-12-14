@@ -19,13 +19,19 @@ proc parseUtcISO(input: string): DateTime =
 
 proc fromLine(line: string): Event =
   let parts = split(line, "\t")
+  let version = parts[0]
   Event(
-    version: parts[0],
+    version: version,
     timestamp: parseUtcISO(parts[1]),
     hook: parts[2],
     repo: parts[3],
     `ref`: parts[4],
-    remote: parts[5]
+    remote: (
+      if version == "0.1.0":
+        ""
+      else:
+        parts[5]
+    )
   )
 
 proc fromFile*(path: string): seq[Event] =
