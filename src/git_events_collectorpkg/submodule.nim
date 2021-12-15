@@ -1,4 +1,5 @@
 import db_sqlite
+import options
 import sequtils
 import strutils
 import sugar
@@ -12,7 +13,8 @@ type Event* = object
   hook*: string
   repo*: string
   `ref`*: string
-  remote*: string
+  remote*: Option[string]
+  propsJSON*: string
 
 proc parseUtcISO(input: string): DateTime =
   input.replace("T", " ").replace("Z", "").parse("yyyy-MM-dd HH:mm:ss", utc())
@@ -26,12 +28,19 @@ proc fromLine(line: string): Event =
     hook: parts[2],
     repo: parts[3],
     `ref`: parts[4],
-    remote: (
-      if version == "0.1.0":
-        ""
+    remote:
+      if version == "0.1.0" or parts[5] == "":
+        none string
       else:
-        parts[5]
-    )
+        some parts[5]
+    ,
+    propsJSON:
+      # Yikes this is awful but I really don't want to spend any time on this
+      # part of things right now…
+      if (version == "0.1.0" or version == "0.1.1" or version == "0.1.2"):
+        "{}"
+      else:
+        parts[6]
   )
 
 proc fromFile*(path: string): seq[Event] =
@@ -52,24 +61,43 @@ proc dbSetup*(db_open: (proc: DbConn)) =
       repo      TEXT NOT NULL,
       ref       TEXT NOT NULL,
       -- Added `remote` in 0.1.1; locations which haven't upgraded won't be writing this yet
-      remote    TEXT
+      remote    TEXT,
+      props     TEXT NOT NULL
     )"""
   # echo query.string
   db_open.use conn: conn.exec query
 
 proc loadDb*(db_open: (proc: DbConn), event: Event) =
-  let query = sql """
-    INSERT INTO events
-             (version, timestamp, hook, repo, ref, remote)
-      VALUES (      ?,         ?,    ?,    ?,   ?,      ?)
-  """
-  # echo query.string
-  db_open.use conn:
-    conn.exec(query,
-      event.version,
-      $event.timestamp,
-      event.hook,
-      event.repo,
-      event.`ref`,
-      event.remote
-    )
+  if event.remote.isSome:
+    let query =
+      sql """
+        INSERT INTO events
+                 (version, timestamp, hook, repo, ref, remote, props)
+          VALUES (      ?,         ?,    ?,    ?,   ?,      ?,     ?)
+      """
+    db_open.use conn:
+      conn.exec(query,
+        event.version,
+        $event.timestamp,
+        event.hook,
+        event.repo,
+        event.`ref`,
+        event.remote.get,
+        event.propsJSON
+      )
+  else:
+    let query =
+      sql """
+        INSERT INTO events
+                 (version, timestamp, hook, repo, ref, remote, props)
+          VALUES (      ?,         ?,    ?,    ?,   ?,   NULL,     ?)
+      """
+    db_open.use conn:
+      conn.exec(query,
+        event.version,
+        $event.timestamp,
+        event.hook,
+        event.repo,
+        event.`ref`,
+        event.propsJSON
+      )

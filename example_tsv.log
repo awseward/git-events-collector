@@ -1,0 +1,5 @@
+0.1.3	2021-12-15T03:47:15Z	/Users/person/.git-hooks/pre-commit	/Users/person/projects/nim/app	beep	git@github.com:person/app.git	{"hook_args":[]}
+0.1.3	2021-12-15T03:47:36Z	/Users/person/.git-hooks/commit-msg	/Users/person/projects/nim/app	beep	git@github.com:person/app.git	{"hook_args":[".git/COMMIT_EDITMSG"]}
+0.1.3	2021-12-15T03:47:37Z	/Users/person/.git-hooks/post-commit	/Users/person/projects/nim/app	beep	git@github.com:person/app.git	{"hook_args":[],"commit_msg_length":40}
+0.1.3	2021-12-15T03:47:43Z	/Users/person/.git-hooks/pre-push	/Users/person/projects/nim/app	beep	git@github.com:person/app.git	{"hook_args":["origin","git@github.com:person/app.git"]}
+0.1.3	2021-12-15T03:47:49Z	/Users/person/.git-hooks/pre-commit	/Users/person/projects/nim/app	boop		{"hook_args":[]}

@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Now loads events' JSON `props` into the SQLite files
+
+### Fixed
+- Events without remotes now come through as null instead of an empty string
 
 ## [0.4.1] 2021-12-14
 ### Fixed
