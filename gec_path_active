@@ -2,4 +2,4 @@
 
 # shellcheck disable=SC2016
 >&2 echo 'DEPRECATED( '"$0"' ) Prefer `gec_path active_log`'
-"$(dirname "$0")/gec_path" active_log
+gec_path active_log

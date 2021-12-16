@@ -1,52 +1,5 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
-
-readonly data_dir="$(gec_path data_dir)"
-
-readonly outbox_dir="${data_dir}/_outbox/logs"; mkdir -p "${outbox_dir}"
-readonly log_ln="${data_dir}/active.log"
-
-_close_log() {
-  local -r src="$1"
-  local -r dest="${outbox_dir}/$(basename "${src}")"
-
-  >&2 chmod -v 400 "${src}"
-  mv "${src}" "${dest}"
-  echo "${dest}"
-}
-
-# Set up and exit if nothing found
-if [ ! -f "${log_ln}" ]; then
-  >&2 echo "${log_ln} does not exist -- setting it up"
-
-  readonly log_new="${data_dir}/$(date +%s).log"
-  touch "${log_new}"
-  ln -fs "${log_new}" "${log_ln}"
-
-  >&2 echo "current log: ${log_new}"
-  exit
-fi
-
-log_active="$(realpath -e "${log_ln}")"
-
-if [ "${log_ln}" = "${log_active}" ]; then
-  >&2 echo "${log_ln} is not a symlink -- making it one"
-
-  migrated_log="${data_dir}/migrated-$(date +%s).log"
-  mv "${log_ln}" "${migrated_log}"
-  ln -fs "${migrated_log}" "${log_ln}"
-fi
-
-log_active="$(realpath -e "${log_ln}")"
-
-### Rotation
-
-log_inactive="${log_active}"
-
-# Point symlink at new file
-readonly log_new="${data_dir}/$(date +%s).log"
-touch "${log_new}"
-ln -fs "${log_new}" "${log_ln}"
-
-_close_log "${log_inactive}"
+# shellcheck disable=SC2016
+>&2 echo 'DEPRECATED( '"$0"' ) Prefer `gec rotate`'
+gec rotate
