@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
-
-default_data_dir="${XDG_DATA_HOME:-${HOME}/.local/share}/git-events"
-data_dir="${RUN_BASE_DIR:-${default_data_dir}}"
-readonly data_dir="$(realpath "${data_dir}")"
->&2 mkdir -p "${data_dir}"
-
-echo "${data_dir}"
+# shellcheck disable=SC2016
+>&2 echo 'DEPRECATED( '"$0"' ) Prefer `gec_path data_dir`'
+"$(dirname "$0")/gec_path" data_dir

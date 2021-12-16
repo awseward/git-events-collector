@@ -13,7 +13,7 @@ fi
 
 # ---
 
-readonly sqlite_filepath_template="$(gec_path_data_dir)/_outbox/dbs/git-events-XXXXXXXX.db"
+readonly sqlite_filepath_template="$(gec_path data_dir)/_outbox/dbs/git-events-XXXXXXXX.db"
 >&2 mkdir -p "$(dirname "${sqlite_filepath_template}")"
 readonly sqlite_filepath="$(mktemp "${sqlite_filepath_template}")"
 
