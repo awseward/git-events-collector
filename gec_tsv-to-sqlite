@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-# shellcheck disable=SC2016
->&2 echo 'DEPRECATED( '"$0"' ) Prefer `gec tsv_to_sqlite …`'
-gec tsv_to_sqlite "$@"
