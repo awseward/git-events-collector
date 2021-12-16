@@ -2,4 +2,4 @@
 
 # shellcheck disable=SC2016
 >&2 echo 'DEPRECATED( '"$0"' ) Prefer `gec_path data_dir`'
-"$(dirname "$0")/gec_path" data_dir
+gec_path data_dir

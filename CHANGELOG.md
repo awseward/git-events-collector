@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
-- Consolidate `gec_path_*` into `gec_path` (https://github.com/awseward/git-events-collector/pull/61)
+- Consolidate `gec_*` into `gec`, `gec_path` (https://github.com/awseward/git-events-collector/pull/61, https://github.com/awseward/git-events-collector/pull/62)
 
 ## [0.4.2] 2021-12-14
 ### Added
