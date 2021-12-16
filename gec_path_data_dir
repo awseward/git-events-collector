@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 # shellcheck disable=SC2016
->&2 echo 'DEPRECATED( '"$0"' ) Prefer `gec_path data_dir`'
-gec_path data_dir
+>&2 echo 'DEPRECATED( '"$0"' ) Prefer `gec data_dir`'
+gec data_dir

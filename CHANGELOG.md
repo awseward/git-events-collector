@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Finish `gec` consolidation by consolidating `gec_path` into `gec` (https://github.com/awseward/git-events-collector/pull/63)
 
 ## [0.4.3] 2021-12-15
 ### Changed
