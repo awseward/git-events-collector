@@ -2,7 +2,18 @@
 
 set -euo pipefail
 
-data_dir() { gec_path data_dir; }
+active_log() {
+  echo "$("$0" data_dir)/active.log"
+}
+
+data_dir() {
+  local -r default_data_dir="${XDG_DATA_HOME:-${HOME}/.local/share}/git-events"
+  local data_dir="${RUN_BASE_DIR:-${default_data_dir}}"
+  data_dir="$(realpath "${data_dir}")"; readonly data_dir
+
+  >&2 mkdir -p "${data_dir}"
+  echo "${data_dir}"
+}
 
 tsv_to_sqlite() {
   local -r tsv_log="$1"
@@ -23,7 +34,7 @@ tsv_to_sqlite() {
 }
 
 rotate() {
-  local -r data_dir="$(gec_path data_dir)"
+  local -r data_dir="$("$0" data_dir)"
 
   local -r outbox_dir="${data_dir}/_outbox/logs"; mkdir -p "${outbox_dir}"
   local -r log_ln="${data_dir}/active.log"

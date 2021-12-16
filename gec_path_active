@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 # shellcheck disable=SC2016
->&2 echo 'DEPRECATED( '"$0"' ) Prefer `gec_path active_log`'
-gec_path active_log
+>&2 echo 'DEPRECATED( '"$0"' ) Prefer `gec active_log`'
+gec active_log
