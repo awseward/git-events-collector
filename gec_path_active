@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
-
-readonly data_dir="$(gec_path_data_dir)"
-echo "${data_dir}/active.log"
+# shellcheck disable=SC2016
+>&2 echo 'DEPRECATED( '"$0"' ) Prefer `gec_path active_log`'
+"$(dirname "$0")/gec_path" active_log
